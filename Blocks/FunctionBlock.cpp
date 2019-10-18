@@ -1,13 +1,13 @@
-#include "funcinputblock.h"
+#include "FunctionBlock.h"
 
-FuncInputBlock::FuncInputBlock(const std::string &name, const std::vector<std::string> &args)
+FunctionBlock::FunctionBlock(const std::string &name, const std::vector<std::string> &args)
     : name_(name)
     , args_(args)
 {
 
 }
 
-std::string FuncInputBlock::get_source(int) const
+std::string FunctionBlock::get_source(int) const
 {
     std::string ret = "def " + name_ + "(";
     if(args_.size() > 0){

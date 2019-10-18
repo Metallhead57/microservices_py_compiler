@@ -2,7 +2,7 @@
 #define CODEGENERATOR_H
 
 #include <list>
-#include "IBlock.h"
+#include "Blocks/IBlock.h"
 
 
 class CodeGenerator

@@ -12,15 +12,15 @@ FILE(GLOB_RECURSE LibFiles "./*.h")
 add_custom_target(headers SOURCES ${LibFiles})
 
 add_executable(code_gen main.cpp
-    helloworldblock.cpp
+    Blocks/SimpleBlock.cpp
     codegenerator.cpp
-    IBlock.cpp
+    Blocks/IBlock.cpp
     runner.cpp
-    funcinputblock.cpp
-    conditionalblock.cpp
-    whileblock.cpp
+    Blocks/FunctionBlock.cpp
+    Blocks/ConditionBlock.cpp
+    Blocks/WhileBlock.cpp
     json_parser.cpp
-    returnblock.cpp)
+    Blocks/ReturnBlock.cpp)
 
 target_link_libraries(code_gen ${PYTHON_LIBRARIES})
 

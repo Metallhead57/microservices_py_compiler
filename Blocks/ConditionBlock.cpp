@@ -1,13 +1,13 @@
-#include "conditionalblock.h"
+#include "ConditionBlock.h"
 
-ConditionalBlock::ConditionalBlock(const std::string &condition)
+ConditionlBlock::ConditionlBlock(const std::string &condition)
     : condition_(condition)
 {
 
 }
 
 
-std::string ConditionalBlock::get_source(int tab) const
+std::string ConditionlBlock::get_source(int tab) const
 {
     std::string ret = tabs(tab) + "if " + condition_ + ":\n";
     if(true_state != nullptr){
@@ -28,12 +28,12 @@ std::string ConditionalBlock::get_source(int tab) const
     return ret;
 }
 
-void ConditionalBlock::set_true_state(IBlock *block)
+void ConditionlBlock::set_true_state(IBlock *block)
 {
     true_state = block;
 }
 
-void ConditionalBlock::set_false_state(IBlock *block)
+void ConditionlBlock::set_false_state(IBlock *block)
 {
     false_state = block;
 }

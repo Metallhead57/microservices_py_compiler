@@ -2,7 +2,7 @@
 #define JSON_PARSER_H
 
 #include <list>
-#include "IBlock.h"
+#include "Blocks/IBlock.h"
 #include <nlohmann/json.hpp>
 
 

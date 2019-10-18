@@ -2,11 +2,11 @@
 
 #include <fstream>
 
-#include "helloworldblock.h"
-#include "funcinputblock.h"
-#include "conditionalblock.h"
-#include "whileblock.h"
-#include "returnblock.h"
+#include "Blocks/SimpleBlock.h"
+#include "Blocks/FunctionBlock.h"
+#include "Blocks/ConditionBlock.h"
+#include "Blocks/WhileBlock.h"
+#include "Blocks/ReturnBlock.h"
 
 using json = nlohmann::json;
 
@@ -29,13 +29,13 @@ std::list<IBlock *> json_parser::read_file(const std::string &filename)
 IBlock *json_parser::read_simple(const json_parser::json &o)
 {
     std::string command = o["command"];
-    return new OutputBlock(command);
+    return new SimpleBlock(command);
 }
 
 IBlock *json_parser::read_condition(const json_parser::json &o)
 {
     std::string condition = o["condition"];
-    ConditionalBlock * cond = new ConditionalBlock(condition);
+    ConditionlBlock * cond = new ConditionlBlock(condition);
     if(o.find("true_state") != o.end()){
         cond->set_true_state(read_commands(o["true_state"]));
     }
@@ -54,7 +54,7 @@ IBlock *json_parser::read_func(const json_parser::json &o)
             args.push_back(i);
         }
     }
-    auto func = new FuncInputBlock(name, args);
+    auto func = new FunctionBlock(name, args);
 
     func->set_next(read_commands(o["commands"]));
     return func;
@@ -63,7 +63,7 @@ IBlock *json_parser::read_func(const json_parser::json &o)
 IBlock *json_parser::read_while(const json_parser::json &o)
 {
     std::string condition = o["condition"];
-    ConditionalBlock * cond = new ConditionalBlock(condition);
+    ConditionlBlock * cond = new ConditionlBlock(condition);
     cond->set_true_state(read_commands(o["true_state"]));
     return cond;
 }

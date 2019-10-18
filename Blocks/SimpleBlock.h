@@ -3,11 +3,11 @@
 
 #include "IBlock.h"
 
-class OutputBlock
+class SimpleBlock
         : public IBlock
 {
 public:
-    OutputBlock(const std::string & out);
+    SimpleBlock(const std::string & out);
     std::string get_source(int tab) const override;
 
 private:

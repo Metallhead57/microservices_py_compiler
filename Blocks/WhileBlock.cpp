@@ -1,4 +1,4 @@
-#include "whileblock.h"
+#include "WhileBlock.h"
 
 WhileBlock::WhileBlock(const std::string &condition)
     : condition_(condition)

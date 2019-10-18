@@ -3,11 +3,11 @@
 
 #include "IBlock.h"
 
-class ConditionalBlock
+class ConditionlBlock
         : public IBlock
 {
 public:
-    ConditionalBlock(const std::string & condition);
+    ConditionlBlock(const std::string & condition);
     std::string get_source(int tab) const;
 
     void set_true_state(IBlock * block);

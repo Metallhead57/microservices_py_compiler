@@ -4,11 +4,11 @@
 #include "IBlock.h"
 #include <vector>
 
-class FuncInputBlock
+class FunctionBlock
         : public IBlock
 {
 public:
-    FuncInputBlock(const std::string & name,
+    FunctionBlock(const std::string & name,
                    const std::vector<std::string> & args);
     std::string get_source(int) const override;
 
