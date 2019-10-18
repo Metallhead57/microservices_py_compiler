@@ -1,0 +1,64 @@
+{
+	"functions": 
+	[
+		{
+			"name" : "main",
+		 	"args" : ["a", "b"],
+		 	"commands" :
+		 	[
+		 		{
+		 			"type" : "condition",
+		 			"condition" : "a > b",
+		 			"true_state" :
+		 			[
+		 				{
+		 					"type" : "simple",
+		 					"command" : "b = b * 2"
+		 				},
+		 				{
+		 					"type" : "condition",
+		 					"condition" : "a > b",
+		 					"true_state" :
+		 					[
+		 						{
+		 							"type" : "while",
+		 							"condition" : "a > b + 10",
+		 							"true_state" :
+		 							[
+		 								{
+		 									"type" : "simple",
+		 									"command" : "a = a -2"
+		 								}
+		 							]
+		 						}
+		 					]
+		 				}
+		 			],
+		 			"false_state" :
+		 			[
+		 				{
+		 					"type" : "simple",
+		 					"command" : "a = a * 2"
+		 				}
+		 			]
+		 		},
+		 		{
+		 			"type" : "return",
+		 			"value" : "foo(a, b)",
+		 			"is_main" : true
+		 		}
+		 	]
+		},
+		{
+			"name" : "foo",
+			"args" : ["a", "b"],
+			"commands" : 
+			[
+				{
+					"type" : "return",
+					"value" : "a - b"
+				}
+			]
+		}
+	]
+}
