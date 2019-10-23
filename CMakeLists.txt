@@ -19,11 +19,16 @@ add_executable(code_gen main.cpp
     Blocks/FunctionBlock.cpp
     Blocks/ConditionBlock.cpp
     Blocks/WhileBlock.cpp
-    json_parser.cpp
-    Blocks/ReturnBlock.cpp)
+    blockparser.cpp
+    Blocks/ReturnBlock.cpp
+    testparser.cpp
+    inputargument.cpp)
 
 target_link_libraries(code_gen ${PYTHON_LIBRARIES})
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/example.json
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test_example.json
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 

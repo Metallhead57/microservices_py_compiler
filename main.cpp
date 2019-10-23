@@ -3,16 +3,18 @@
 
 #include "codegenerator.h"
 #include "runner.h"
-#include "json_parser.h"
+#include "blockparser.h"
+#include "testparser.h"
 
 using namespace std;
 
 int main()
 {
     //TODO удаление всех блоков
-    json_parser parser;
+    BlockParser parser;
     auto functions = parser.read_file("example.json");
-
+    TestParser test_parser;
+    auto tests = test_parser.from_file("test_example.json");
     CodeGenerator code;
     cout << code.get_prog(functions) << endl;
     Runner runner;

@@ -6,13 +6,14 @@
 #include <nlohmann/json.hpp>
 
 
-class json_parser
+class BlockParser
 {
+    using json = nlohmann::json;
 public:
-    json_parser();
+    BlockParser();
+    std::list<IBlock*> parse_json(const json & o);
     std::list<IBlock*> read_file(const std::string & filename);
 private:
-    using json = nlohmann::json;
     IBlock * read_simple(const json & o);
     IBlock * read_condition(const json & o);
     IBlock * read_func(const json & o);

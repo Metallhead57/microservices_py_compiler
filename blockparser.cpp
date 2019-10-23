@@ -1,4 +1,4 @@
-#include "json_parser.h"
+#include "blockparser.h"
 
 #include <fstream>
 
@@ -10,14 +10,13 @@
 
 using json = nlohmann::json;
 
-json_parser::json_parser()
+BlockParser::BlockParser()
 {
 }
 
-std::list<IBlock *> json_parser::read_file(const std::string &filename)
+std::list<IBlock *> BlockParser::parse_json(const BlockParser::json &o)
 {
     std::list<IBlock*> ret;
-    auto o = json::parse(std::ifstream(filename));
     auto functions = o["functions"];
     //NOTE исполняться всегда должен main
     for(const auto & i : functions){
@@ -26,13 +25,19 @@ std::list<IBlock *> json_parser::read_file(const std::string &filename)
     return ret;
 }
 
-IBlock *json_parser::read_simple(const json_parser::json &o)
+std::list<IBlock *> BlockParser::read_file(const std::string &filename)
+{
+    auto o = json::parse(std::ifstream(filename));
+    return parse_json(o);
+}
+
+IBlock *BlockParser::read_simple(const BlockParser::json &o)
 {
     std::string command = o["command"];
     return new SimpleBlock(command);
 }
 
-IBlock *json_parser::read_condition(const json_parser::json &o)
+IBlock *BlockParser::read_condition(const BlockParser::json &o)
 {
     std::string condition = o["condition"];
     ConditionlBlock * cond = new ConditionlBlock(condition);
@@ -45,7 +50,7 @@ IBlock *json_parser::read_condition(const json_parser::json &o)
     return cond;
 }
 
-IBlock *json_parser::read_func(const json_parser::json &o)
+IBlock *BlockParser::read_func(const BlockParser::json &o)
 {
     std::string name = o["name"];
     std::vector<std::string> args;
@@ -60,7 +65,7 @@ IBlock *json_parser::read_func(const json_parser::json &o)
     return func;
 }
 
-IBlock *json_parser::read_while(const json_parser::json &o)
+IBlock *BlockParser::read_while(const BlockParser::json &o)
 {
     std::string condition = o["condition"];
     ConditionlBlock * cond = new ConditionlBlock(condition);
@@ -68,7 +73,7 @@ IBlock *json_parser::read_while(const json_parser::json &o)
     return cond;
 }
 
-IBlock *json_parser::type_switch(const json_parser::json &o)
+IBlock *BlockParser::type_switch(const BlockParser::json &o)
 {
     enum BlockType{
         Simple,
@@ -91,7 +96,7 @@ IBlock *json_parser::type_switch(const json_parser::json &o)
     }
 }
 
-IBlock *json_parser::read_return(const json_parser::json &o)
+IBlock *BlockParser::read_return(const BlockParser::json &o)
 {
     std::string value = o["value"];
     bool is_main = false;
@@ -101,7 +106,7 @@ IBlock *json_parser::read_return(const json_parser::json &o)
     return new ReturnBlock(value, is_main);
 }
 
-IBlock *json_parser::read_commands(const json_parser::json &o)
+IBlock *BlockParser::read_commands(const BlockParser::json &o)
 {
     IBlock * head = nullptr;
     IBlock * working = nullptr;
