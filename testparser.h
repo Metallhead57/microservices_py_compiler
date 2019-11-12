@@ -13,7 +13,7 @@ public:
     TestCases from_file(const std::string & filename);
 
 private:
-    std::vector<IArgument*> get_arguments(const json & o);
+    std::vector<IArgument_ptr> get_arguments(const json & o);
 };
 
 #endif // TESTPARSER_H

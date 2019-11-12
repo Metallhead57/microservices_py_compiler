@@ -3,7 +3,7 @@
 	[
 		{
 			"name" : "main",
-		 	"args" : ["a", "b"],
+		 	"args" : ["a", "b", "c"],
 		 	"commands" :
 		 	[
 		 		{
@@ -42,6 +42,10 @@
 		 				}
 		 			]
 		 		},
+                {
+                    "type" : "simple",
+                    "command" : "print(c)"
+                },
 		 		{
 		 			"type" : "return",
 		 			"value" : "foo(a, b)",

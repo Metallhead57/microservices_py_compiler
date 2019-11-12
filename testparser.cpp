@@ -26,21 +26,21 @@ TestCases TestParser::from_file(const std::string &filename)
     return parse_json(o);
 }
 
-std::vector<IArgument *> TestParser::get_arguments(const TestParser::json &o)
+std::vector<IArgument_ptr> TestParser::get_arguments(const TestParser::json &o)
 {
-    std::vector<IArgument*> ret;
+    std::vector<IArgument_ptr> ret;
     for(const auto & i : o){
         if(i["type"] == "Integer"){
             int val = i["value"];
-            ret.push_back(new InputArgument<int>(val));
+            ret.push_back(std::make_shared<InputArgument<int>>(val));
         }
         else if (i["type"] == "Float"){
             float val = i["value"];
-            ret.push_back(new InputArgument<float>(val));
+            ret.push_back(std::make_shared<InputArgument<float>>(val));
         }
         else {
             std::string val = i["value"];
-            ret.push_back(new InputArgument<std::string>(val));
+            ret.push_back(std::make_shared<InputArgument<std::string>>(val));
         }
     }
     return ret;

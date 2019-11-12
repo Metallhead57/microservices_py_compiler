@@ -18,7 +18,11 @@ int main()
     CodeGenerator code;
     cout << code.get_prog(functions) << endl;
     Runner runner;
-    runner.run(code.get_prog(functions));
+    auto res = runner.run(code.get_prog(functions), tests);
+    for(const auto & i : res){
+        cout << i << " ";
+    }
+    cout << endl;
 
     return 0;
 }

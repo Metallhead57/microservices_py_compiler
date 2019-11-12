@@ -8,7 +8,10 @@ class Runner
 {
 public:
     Runner();
-    void run(const std::string & source, const TestCases & test_cases) const;
+    std::vector<bool> run(const std::string & source, const TestCases & test_cases) const;
+
+private:
+    PyObject * set_args(const TestCase & test_case) const;
 };
 
 #endif // RUNNER_H

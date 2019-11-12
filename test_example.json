@@ -17,7 +17,7 @@
 					"value" : "hello world"
 				}
 			],
-			"answer" : "42"
+			"answer" : "5.0"
 		},
 		{
 			"args" :
@@ -35,7 +35,7 @@
 					"value" : "hello world"
 				}
 			],
-			"answer" : "42"	
+			"answer" : "-11.0"	
 		}
 	]
 }
