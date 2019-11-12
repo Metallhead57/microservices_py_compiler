@@ -14,9 +14,9 @@ BlockParser::BlockParser()
 {
 }
 
-std::list<IBlock *> BlockParser::parse_json(const BlockParser::json &o)
+std::list<Block> BlockParser::parse_json(const BlockParser::json &o)
 {
-    std::list<IBlock*> ret;
+    std::list<Block> ret;
     auto functions = o["functions"];
     //NOTE исполняться всегда должен main
     for(const auto & i : functions){
@@ -25,19 +25,19 @@ std::list<IBlock *> BlockParser::parse_json(const BlockParser::json &o)
     return ret;
 }
 
-std::list<IBlock *> BlockParser::read_file(const std::string &filename)
+std::list<Block> BlockParser::read_file(const std::string &filename)
 {
     auto o = json::parse(std::ifstream(filename));
     return parse_json(o);
 }
 
-IBlock *BlockParser::read_simple(const BlockParser::json &o)
+Block BlockParser::read_simple(const BlockParser::json &o)
 {
     std::string command = o["command"];
-    return new SimpleBlock(command);
+    return std::make_shared<SimpleBlock>(command);
 }
 
-IBlock *BlockParser::read_condition(const BlockParser::json &o)
+Block BlockParser::read_condition(const BlockParser::json &o)
 {
     std::string condition = o["condition"];
     ConditionlBlock * cond = new ConditionlBlock(condition);
@@ -47,10 +47,10 @@ IBlock *BlockParser::read_condition(const BlockParser::json &o)
     if(o.find("false_state") != o.end()){
         cond->set_false_state(read_commands(o["false_state"]));
     }
-    return cond;
+    return std::shared_ptr<IBlock>(cond);
 }
 
-IBlock *BlockParser::read_func(const BlockParser::json &o)
+Block BlockParser::read_func(const BlockParser::json &o)
 {
     std::string name = o["name"];
     std::vector<std::string> args;
@@ -62,18 +62,18 @@ IBlock *BlockParser::read_func(const BlockParser::json &o)
     auto func = new FunctionBlock(name, args);
 
     func->set_next(read_commands(o["commands"]));
-    return func;
+    return std::shared_ptr<IBlock>(func);
 }
 
-IBlock *BlockParser::read_while(const BlockParser::json &o)
+Block BlockParser::read_while(const BlockParser::json &o)
 {
     std::string condition = o["condition"];
     ConditionlBlock * cond = new ConditionlBlock(condition);
     cond->set_true_state(read_commands(o["true_state"]));
-    return cond;
+    return std::shared_ptr<IBlock>(cond);
 }
 
-IBlock *BlockParser::type_switch(const BlockParser::json &o)
+Block BlockParser::type_switch(const BlockParser::json &o)
 {
     enum BlockType{
         Simple,
@@ -96,22 +96,22 @@ IBlock *BlockParser::type_switch(const BlockParser::json &o)
     }
 }
 
-IBlock *BlockParser::read_return(const BlockParser::json &o)
+Block BlockParser::read_return(const BlockParser::json &o)
 {
     std::string value = o["value"];
     bool is_main = false;
     if(o.find("is_main") != o.end() && o["is_main"] == true){
         is_main = true;
     }
-    return new ReturnBlock(value, is_main);
+    return std::make_shared<ReturnBlock>(value, is_main);
 }
 
-IBlock *BlockParser::read_commands(const BlockParser::json &o)
+Block BlockParser::read_commands(const BlockParser::json &o)
 {
-    IBlock * head = nullptr;
-    IBlock * working = nullptr;
+    Block head = nullptr;
+    Block working = nullptr;
     for(const auto & command : o){
-        IBlock * current = type_switch(command);
+        Block current = type_switch(command);
         if(head == nullptr){
             head = current;
             working = current;

@@ -5,7 +5,7 @@ CodeGenerator::CodeGenerator()
 
 }
 
-std::string CodeGenerator::get_prog(const std::list<IBlock*> & functions) const
+std::string CodeGenerator::get_prog(const std::list<Block> &functions) const
 {
     std::string ret = "";
     int current_tab = 1;

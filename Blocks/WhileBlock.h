@@ -8,9 +8,9 @@ class WhileBlock
 {
 public:
     WhileBlock(const std::string & condition);
-    void set_true_state(IBlock * block);
+    void set_true_state(Block block);
 private:
-    IBlock * true_state;
+    Block true_state;
     std::string condition_;
     std::string get_source(int tab) const override;
 

@@ -9,7 +9,7 @@ class CodeGenerator
 {
 public:
     CodeGenerator();
-    std::string get_prog(const std::list<IBlock*> & functions) const;
+    std::string get_prog(const std::list<Block> & functions) const;
 
 };
 

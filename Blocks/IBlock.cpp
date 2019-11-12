@@ -5,12 +5,12 @@ IBlock::IBlock()
 
 }
 
-void IBlock::set_next(IBlock *block)
+void IBlock::set_next(Block block)
 {
     next_ = block;
 }
 
-IBlock *IBlock::next() const
+Block IBlock::next() const
 {
     return next_;
 }

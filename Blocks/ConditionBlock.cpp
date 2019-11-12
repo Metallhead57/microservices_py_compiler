@@ -11,7 +11,7 @@ std::string ConditionlBlock::get_source(int tab) const
 {
     std::string ret = tabs(tab) + "if " + condition_ + ":\n";
     if(true_state != nullptr){
-        IBlock * head = true_state;
+        Block head = true_state;
         while(head != nullptr){
             ret += head->get_source(tab + 1);
             head = head->next();
@@ -19,7 +19,7 @@ std::string ConditionlBlock::get_source(int tab) const
     }
     if(false_state != nullptr){
         ret += tabs(tab) + "else:\n";
-        IBlock * head = false_state;
+        Block head = false_state;
         while(head != nullptr){
             ret += head->get_source(tab + 1);
             head = head->next();
@@ -28,12 +28,12 @@ std::string ConditionlBlock::get_source(int tab) const
     return ret;
 }
 
-void ConditionlBlock::set_true_state(IBlock *block)
+void ConditionlBlock::set_true_state(Block block)
 {
     true_state = block;
 }
 
-void ConditionlBlock::set_false_state(IBlock *block)
+void ConditionlBlock::set_false_state(Block block)
 {
     false_state = block;
 }
