@@ -24,7 +24,7 @@ add_executable(code_gen main.cpp
     testparser.cpp
     inputargument.cpp)
 
-target_link_libraries(code_gen ${PYTHON_LIBRARIES})
+target_link_libraries(code_gen ${PYTHON_LIBRARIES} zmq)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/example.json
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
